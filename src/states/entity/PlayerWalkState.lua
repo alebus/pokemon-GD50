@@ -24,8 +24,9 @@ end
 function PlayerWalkState:checkForEncounter()
     local x, y = self.entity.mapX, self.entity.mapY
 
+    -- todo debug - changed from 10 to 2 for much higher chance as I test
     -- chance to go to battle if we're walking into a grass tile, else move as normal
-    if self.level.grassLayer.tiles[y][x].id == TILE_IDS['tall-grass'] and math.random(10) == 1 then
+    if self.level.grassLayer.tiles[y][x].id == TILE_IDS['tall-grass'] and math.random(2) == 1 then
         self.entity:changeState('idle')
 
         -- trigger music changes

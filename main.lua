@@ -42,6 +42,9 @@
 
 require 'src/Dependencies'
 
+-- debug
+love._openConsole()  
+
 function love.load()
     love.window.setTitle('Poke50')
     love.graphics.setDefaultFilter('nearest', 'nearest')

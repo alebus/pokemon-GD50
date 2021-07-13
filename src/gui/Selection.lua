@@ -18,6 +18,11 @@ function Selection:init(def)
     self.x = def.x
     self.y = def.y
 
+    -- todo need a way to disable cursor etc for the assignment
+    -- is currently not staying set to false, look at Menu.lua etc
+    self.cursor = def.cursor
+    print("debug2", self.cursor)
+
     self.height = def.height
     self.width = def.width
     self.font = def.font or gFonts['small']
@@ -28,29 +33,34 @@ function Selection:init(def)
 end
 
 function Selection:update(dt)
-    if love.keyboard.wasPressed('up') then
-        if self.currentSelection == 1 then
-            self.currentSelection = #self.items
-        else
-            self.currentSelection = self.currentSelection - 1
+
+    -- only do this stuff if self.cursor is true
+    if self.cursor then
+    
+        if love.keyboard.wasPressed('up') then
+            if self.currentSelection == 1 then
+                self.currentSelection = #self.items
+            else
+                self.currentSelection = self.currentSelection - 1
+            end
+            
+            gSounds['blip']:stop()
+            gSounds['blip']:play()
+        elseif love.keyboard.wasPressed('down') then
+            if self.currentSelection == #self.items then
+                self.currentSelection = 1
+            else
+                self.currentSelection = self.currentSelection + 1
+            end
+            
+            gSounds['blip']:stop()
+            gSounds['blip']:play()
+        elseif love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') then
+            self.items[self.currentSelection].onSelect()
+            
+            gSounds['blip']:stop()
+            gSounds['blip']:play()
         end
-        
-        gSounds['blip']:stop()
-        gSounds['blip']:play()
-    elseif love.keyboard.wasPressed('down') then
-        if self.currentSelection == #self.items then
-            self.currentSelection = 1
-        else
-            self.currentSelection = self.currentSelection + 1
-        end
-        
-        gSounds['blip']:stop()
-        gSounds['blip']:play()
-    elseif love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') then
-        self.items[self.currentSelection].onSelect()
-        
-        gSounds['blip']:stop()
-        gSounds['blip']:play()
     end
 end
 
@@ -60,8 +70,9 @@ function Selection:render()
     for i = 1, #self.items do
         local paddedY = currentY + (self.gapHeight / 2) - self.font:getHeight() / 2
 
-        -- draw selection marker if we're at the right index
-        if i == self.currentSelection then
+       
+        -- draw selection marker if we're at the right index AND self.cursor is true
+        if i == self.currentSelection and self.cursor then
             love.graphics.draw(gTextures['cursor'], self.x - 8, paddedY)
         end
 

@@ -214,9 +214,10 @@ function TakeTurnState:victory()
                         self.playerPokemon.currentExp = self.playerPokemon.currentExp - self.playerPokemon.expToLevel
                         self.playerPokemon:levelUp()
 
+                        -- todo 
                         gStateStack:push(BattleMessageState('Congratulations! Level Up!',
                         function()
-                            self:fadeOutWhite()
+                            gStateStack:push(LevelupMenuState(function() self:fadeOutWhite() end ))
                         end))
                     else
                         self:fadeOutWhite()
