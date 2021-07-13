@@ -18,8 +18,7 @@ function Selection:init(def)
     self.x = def.x
     self.y = def.y
 
-    -- todo need a way to disable cursor etc for the assignment
-    -- is currently not staying set to false, look at Menu.lua etc
+    -- disable cursor for the level up box
     self.cursor = def.cursor
     print("debug2", self.cursor)
 

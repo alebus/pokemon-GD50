@@ -21,8 +21,8 @@ function PlayState:update(dt)
     if not self.dialogueOpened and love.keyboard.wasPressed('p') then
         
         -- debug 
-        debugHP = 100
-        self.level.player.party.pokemon[1].currentExp = self.level.player.party.pokemon[1].currentExp + 100
+        debugHP = 25
+        self.level.player.party.pokemon[1].currentExp = self.level.player.party.pokemon[1].currentExp + 50
         -- heal player pokemon
         gSounds['heal']:play()
         self.level.player.party.pokemon[1].currentHP = self.level.player.party.pokemon[1].HP + debugHP

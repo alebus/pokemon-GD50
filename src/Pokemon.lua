@@ -92,16 +92,13 @@ function Pokemon:statsLevelUp()
         end
     end
 
-    -- todo - here are the values
+    -- here are the values
     return HPIncrease, attackIncrease, defenseIncrease, speedIncrease
 end
 
 function Pokemon:levelUp()
     self.level = self.level + 1
     self.expToLevel = self.level * self.level * 5 * 0.75
-    
-    --todo debug
-    --gStateStack:push(LevelupMenuState(function() self:fadeOutWhite() end ))
 
     return self:statsLevelUp()
 end

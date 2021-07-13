@@ -2,13 +2,13 @@
 
 LevelupMenuState = Class{__includes = BaseState}
 
-function LevelupMenuState:init(onClose)
-    -- todo pass in the values that I need to display or are they global?
+function LevelupMenuState:init(playerPokemon, onClose)
     
-    -- todo see BattleMessageState and BattleMenuState for more as needed, this is a hybrid of the two
+    self.playerPokemon = playerPokemon
+    
     self.onClose = onClose or function() end
 
-    -- todo
+   
     self.levelMenu = Menu {
         cursor = false,
         font = "medium",
@@ -18,13 +18,20 @@ function LevelupMenuState:init(onClose)
         height = 128,
         items = {
             {
-                text = 'test',
+                text = "HP: " .. (self.playerPokemon.baseHP - self.playerPokemon.HPIncrease) .. "+" 
+                    .. self.playerPokemon.HPIncrease .. " = " .. self.playerPokemon.baseHP,
             },
             {
-                text = 'test',
+                text = "ATK: " .. (self.playerPokemon.baseAttack - self.playerPokemon.attackIncrease) .. "+" 
+                .. self.playerPokemon.attackIncrease .. " = " .. self.playerPokemon.baseAttack,
             },
             {
-                text = 'test2',
+                text = "DEF: " .. (self.playerPokemon.baseDefense - self.playerPokemon.defenseIncrease) .. "+" 
+                .. self.playerPokemon.defenseIncrease .. " = " .. self.playerPokemon.baseDefense,
+            },
+            {
+                text = "SPD: " .. (self.playerPokemon.baseSpeed - self.playerPokemon.speedIncrease) .. "+" 
+                .. self.playerPokemon.speedIncrease .. " = " .. self.playerPokemon.baseSpeed,
             }
         }
     }
